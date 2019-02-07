@@ -1,5 +1,5 @@
 # gradle-cobol-plugin
-[![Build Status](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-core.svg?branch=master)](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-core)
+[![Build Status](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin.svg?branch=master)](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin)
 
 This project is part of my master thesis.
 
@@ -27,7 +27,6 @@ Further Reading:
 
 * [GNUCobol-compiler](https://open-cobol.sourceforge.io/) The cobol compiler
 * [cobol-unit-test](https://github.com/neopragma/cobol-unit-test) The documentation of the unit-test feature
-
 
 ## Compatibility
 
