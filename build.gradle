@@ -22,6 +22,9 @@ dependencies {
 def applicationName = "CobolPlugin"
 group = 'de.sebastianruziczka'
 
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8' 
+
 version = '0.0.42'
 def realVersion = ''
 if (project.hasProperty("generateLatest")) {
