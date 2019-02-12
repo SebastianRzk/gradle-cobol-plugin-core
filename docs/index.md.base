@@ -140,25 +140,7 @@ A minimal configuration for more than one cobol source file:
     }
 
 ###  Testing (Unit + Integration)
-
-Add this lines at the top of your build.gradle to enable unittests (more information: [gradle-cobol-plugin-unittest-extension](https://gradle-cobol-unit.sebastianruziczka.de)):
-
-     buildscript {
-     	 dependencies {
-     		classpath group: 'de.sebastianruziczka', name: 'gradle-cobol-plugin-unittest-extension', version: 'latest'
-     	}
-     }
-
-Or hardcode with specific version (not preferred):
-
-     buildscript {
-     	 dependencies {
-     		classpath group: 'de.sebastianruziczka', name: 'gradle-cobol-plugin-unittest-extension', version: 'gradle.unitVersion'
-     	}
-     }
      
-#### Unit testing
-
 To run your unit-tests enter:
 
 	gradle testUnit
@@ -168,7 +150,7 @@ The additional parameter 'showResults' prints out all results (successfull + fai
 	gradle testUnit -PshowResults
 
      
-#### Integration testing
+### Integration testing
 
 To run your unit-tests enter:
 
@@ -328,5 +310,6 @@ Features:
 Interface to the configured compiler. An instance is located in `CobolExtension.compiler`
 
 This builder enables executable files and modules to be compiled.
+
 
 
