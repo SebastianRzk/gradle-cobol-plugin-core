@@ -6,6 +6,6 @@ jdk:
 sudo: required
 
 script:
-     - gradlew --version
-     - gradlew check
+     - ./gradlew --version
+     - ./gradlew check
      - sh ci/endToEndTest.sh
