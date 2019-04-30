@@ -12,7 +12,7 @@ class CobolMultitargetCompileTask extends DefaultTask{
 	CobolExtension configuration;
 
 	@TaskAction
-	public void compile() {
+	public void execute() {
 		this.allTargets.each{
 			new CobolCompileExecutableImpl().compile(project, this.configuration, it)
 		}

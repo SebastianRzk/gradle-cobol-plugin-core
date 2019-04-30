@@ -15,7 +15,7 @@ class CobolIntegrationTestTask extends DefaultTask{
 	def CobolExtension configuration
 
 	@TaskAction
-	public void test() {
+	public void execute() {
 		integrationTestFrameworks.forEach({ it.clean() })
 
 		def testTree = this.configuration.integrationTestTree()
