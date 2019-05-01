@@ -15,7 +15,7 @@ class CobolUnitTestTask extends DefaultTask{
 	def CobolExtension configuration
 
 	@TaskAction
-	public void execute() {
+	public void run() {
 		unitTestFrameworks.forEach({ it.clean() })
 
 		def testTree = this.configuration.unitTestTree()
