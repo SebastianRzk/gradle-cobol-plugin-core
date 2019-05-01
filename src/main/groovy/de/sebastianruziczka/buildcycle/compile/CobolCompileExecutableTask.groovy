@@ -21,7 +21,7 @@ class CobolCompileExecutableTask extends DefaultTask{
 	def File outputDir
 
 	@TaskAction
-	public def execute() {
+	public void execute() {
 		new CobolCompileExecutableImpl().compile(this.project, this.configuration, this.target)
 	}
 }
