@@ -10,7 +10,7 @@ class HelloWorldTask extends DefaultTask{
 	CobolExtension configuration
 
 	@TaskAction
-	public void execute() {
+	public void run() {
 		println 'Overwrite configured srcMain settings'
 		this.configuration.srcMain = 'HELLOWORLD'
 		new File(this.configuration.absoluteBinMainPath()).getParentFile().mkdirs()

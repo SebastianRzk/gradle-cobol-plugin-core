@@ -24,7 +24,7 @@ class CobolCompileDebugTask extends DefaultTask{
 	def File outputDir
 
 	@TaskAction
-	public void execute(IncrementalTaskInputs inputs) {
+	public void run(IncrementalTaskInputs inputs) {
 		String sourceModule = this.configuration.projectFileResolver(this.configuration.srcMainPath).absolutePath
 		Set<String> done = new HashSet<>()
 		inputs.outOfDate { change ->
