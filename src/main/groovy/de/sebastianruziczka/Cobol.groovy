@@ -24,7 +24,7 @@ class Cobol implements Plugin<Project> {
 		project.afterEvaluate {
 
 			if (this.mainNotSet(conf)) {
-				conf = this.setMain(conf)
+				conf = this.setMain(conf, project)
 			}
 
 			Logger logger = LoggerFactory.getLogger('cobolPlugin')
@@ -65,7 +65,7 @@ class Cobol implements Plugin<Project> {
 		return conf.srcMain == null || conf.srcMain == ''
 	}
 
-	private CobolExtension setMain(CobolExtension conf) {
+	private CobolExtension setMain(CobolExtension conf, Project project) {
 		def allSourceFiles = []
 		def tree = conf.sourceTree()
 		tree.each { File file ->

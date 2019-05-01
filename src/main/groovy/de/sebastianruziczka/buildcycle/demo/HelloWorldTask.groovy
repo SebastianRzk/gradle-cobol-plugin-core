@@ -9,9 +9,8 @@ class HelloWorldTask extends DefaultTask{
 
 	CobolExtension configuration
 
-
 	@TaskAction
-	public void compileAndRun() {
+	public void execute() {
 		println 'Overwrite configured srcMain settings'
 		this.configuration.srcMain = 'HELLOWORLD'
 		new File(this.configuration.absoluteBinMainPath()).getParentFile().mkdirs()
@@ -22,6 +21,5 @@ class HelloWorldTask extends DefaultTask{
 
 		println 'Overwriting configured terminal with console terminal'
 		this.configuration.terminal = 'current'
-		this.project.tasks.runDebug.execute()
 	}
 }

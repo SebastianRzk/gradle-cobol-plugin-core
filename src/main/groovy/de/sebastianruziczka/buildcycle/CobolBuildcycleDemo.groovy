@@ -13,9 +13,9 @@ class CobolBuildcycleDemo {
 		Logger logger = LoggerFactory.getLogger('runCobol')
 
 
-		project.task ('helloWorld', type: HelloWorldTask) {
+		project.task ('helloWorldInstall', type: HelloWorldTask) {
 			group 'COBOL Demo'
-			description 'Copys HelloWorld.cbl in src/main/cobol and executes it'
+			description 'Copys HelloWorld.cbl in src/main/cobol'
 			configuration = conf
 			doFirst {
 				if (conf.fileFormat == 'fixed') {
@@ -23,6 +23,12 @@ class CobolBuildcycleDemo {
 				}
 			}
 		}
+		
+		project.task ('helloWorld', dependsOn: ['helloWorldInstall', 'runDebug']) {
+			group 'COBOL Demo'
+			description 'Copys HelloWorld.cbl in src/main/cobol and executes it'
+		}
+		project.tasks.runDebug.mustRunAfter project.tasks.helloWorldInstall
 	}
 
 	private void copy(String source, String destination, Logger logger) {
