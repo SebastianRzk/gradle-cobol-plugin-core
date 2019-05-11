@@ -6,52 +6,33 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import de.sebastianruziczka.CobolExtension
-import de.sebastianruziczka.buildcycle.demo.HelloWorldTask
+import de.sebastianruziczka.buildcycle.demo.CobolDemoConstants
+import de.sebastianruziczka.buildcycle.demo.HelloWorldConfigureTask
+import de.sebastianruziczka.buildcycle.demo.HelloWorldCopyTask
 
 class CobolBuildcycleDemo {
 	void apply (Project project, CobolExtension conf){
 		Logger logger = LoggerFactory.getLogger('runCobol')
 
-
-		project.task ('helloWorldInstall', type: HelloWorldTask) {
+		
+		project.task ('helloWorldCopySource', type: HelloWorldCopyTask) {
 			group 'COBOL Demo'
-			description 'Copys HelloWorld.cbl in src/main/cobol'
+			description 'Copys ' + CobolDemoConstants.COBOL_SRC_FILE_PATH + ' in src/main/cobol'
 			configuration = conf
-			doFirst {
-				if (conf.fileFormat == 'fixed') {
-					copy('res/fixed/HELLOWORLD.cbl', conf.srcMainPath + '/HELLOWORLD.cbl' , logger)
-				}
-			}
+			outputFile = new File(conf.srcMainPath + CobolDemoConstants.COBOL_SRC_FILE_PATH)
+		}
+
+		project.task ('helloWorldConfigure', type: HelloWorldConfigureTask) {
+			group 'COBOL Demo'
+			description 'Set configuration for ' + CobolDemoConstants.COBOL_SRC_FILE_PATH
+			configuration = conf
 		}
 		
-		project.task ('helloWorld', dependsOn: ['helloWorldInstall', 'runDebug']) {
+		project.task ('helloWorld', dependsOn: ['helloWorldCopySource', 'helloWorldConfigure', 'runDebug']) {
 			group 'COBOL Demo'
-			description 'Copys HelloWorld.cbl in src/main/cobol and executes it'
+			description 'Copys ' + CobolDemoConstants.COBOL_SRC_FILE_PATH + ' in src/main/cobol and executes it'
 		}
-		project.tasks.runDebug.mustRunAfter project.tasks.helloWorldInstall
-	}
-
-	private void copy(String source, String destination, Logger logger) {
-		logger.info('COPY: '+ source + '>>' + destination)
-		URLClassLoader urlClassLoader = (URLClassLoader) Thread.currentThread().getContextClassLoader()
-		URL sourceFile = urlClassLoader.findResource(source)
-		InputStream is = sourceFile.openStream()
-
-		File targetFile = new File(destination)
-
-		if(!targetFile.getParentFile().exists()) {
-			targetFile.getParentFile().mkdirs()
-		}
-
-		OutputStream outStream = new FileOutputStream(targetFile)
-
-		byte[] buffer = new byte[1024]
-		int length
-		while ((length = is.read(buffer)) > 0) {
-			outStream.write(buffer, 0, length)
-		}
-
-		outStream.close()
-		is.close()
+		project.tasks.runDebug.mustRunAfter project.tasks.helloWorldConfigure
+		project.tasks.helloWorldConfigure.mustRunAfter project.tasks.helloWorldCopySource
 	}
 }
