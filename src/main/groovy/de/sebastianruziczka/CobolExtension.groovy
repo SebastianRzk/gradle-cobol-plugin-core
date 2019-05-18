@@ -98,7 +98,7 @@ class CobolExtension {
 		return this.projectFileResolver(binMainPath + '/' +  name).absolutePath
 	}
 
-	String debugFileType = '.so'
+	String debugFileType = ''
 	String absoluteDebugMainPath(String name) {
 		return this.absoluteBinMainPath(name) + this.debugFileType
 	}
