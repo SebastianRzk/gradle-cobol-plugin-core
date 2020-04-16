@@ -76,15 +76,15 @@ Initial project structure:
 
 Import the plugin from the provided repo (in your settings.gradle):
 
-    mvn: https://sebastianruziczka.de/repo/mvn
-    ivy: https://sebastianruziczka.de/repo/ivy
+    mvn: https://repo.sebastianruziczka.de/mvn
+    ivy: https://repo.sebastianruziczka.de/ivy
 
 E.g. settings.gradle :
 
 	pluginManagement {
 		repositories {
 			maven {
-				url 'https://sebastianruziczka.de/repo/mvn/'
+				url 'https://repo.sebastianruziczka.de/mvn/'
 			}
 		}
 	}
@@ -265,7 +265,7 @@ At first, add the gradleAPI and gradle-cobol-plugin as dependency:
 		mavenCentral()
 		jcenter()
 		maven {
-			url 'https://sebastianruziczka.de/repo/mvn'
+			url 'https://repo.sebastianruziczka.de/mvn'
 		}
 	}
 
