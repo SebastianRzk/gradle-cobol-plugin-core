@@ -1,6 +1,7 @@
 package de.sebastianruziczka.buildcycle.integrationtest
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 
 import de.sebastianruziczka.CobolExtension
@@ -11,8 +12,14 @@ import de.sebastianruziczka.buildcycle.test.TestResultConsolePrinter
 import de.sebastianruziczka.buildcycle.test.UnitTestError
 
 class CobolIntegrationTestTask extends DefaultTask{
+	@Input
 	def integrationTestFrameworks = []
-	def CobolExtension configuration
+	
+	private CobolExtension configuration
+	
+	public CobolIntegrationTestTask(CobolExtension configuration) {
+		this.configuration = configuration
+	}
 
 	@TaskAction
 	public void run() {

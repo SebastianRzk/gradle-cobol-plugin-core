@@ -1,6 +1,7 @@
 package de.sebastianruziczka.buildcycle.compile
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.SkipWhenEmpty
@@ -10,7 +11,9 @@ import de.sebastianruziczka.CobolExtension
 
 class CobolCompileExecutableTask extends DefaultTask{
 
-	CobolExtension configuration
+	private CobolExtension configuration
+	
+	@Input
 	String target
 
 	@SkipWhenEmpty
@@ -19,6 +22,10 @@ class CobolCompileExecutableTask extends DefaultTask{
 
 	@OutputFile
 	def File outputDir
+	
+	public CobolCompileExecutableTask(CobolExtension configuration) {
+		this.configuration = configuration
+	}
 
 	@TaskAction
 	public void run() {

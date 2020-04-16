@@ -7,8 +7,12 @@ import de.sebastianruziczka.CobolExtension
 
 class HelloWorldConfigureTask extends DefaultTask{
 
-	CobolExtension configuration
+	private CobolExtension configuration
 
+	public HelloWorldConfigureTask(CobolExtension configuration) {
+		this.configuration = configuration
+	}
+	
 	@TaskAction
 	public void run() {
 		println 'Overwrite configured srcMain settings'
