@@ -17,14 +17,11 @@ class CobolUnitTestTask extends DefaultTask{
 	@Input
 	def unitTestFrameworks = []
 
-	private CobolExtension configuration
-
-	public CobolUnitTestTask() {
-		this.configuration = getProject().extensions.findByType(CobolExtension.class)
-	}
 
 	@TaskAction
 	public void run() {
+		final CobolExtension configuration = getProject().extensions.findByType(CobolExtension.class)
+
 		unitTestFrameworks.forEach({ it.clean() })
 
 		def testTree = this.configuration.unitTestTree()
