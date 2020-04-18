@@ -47,6 +47,8 @@ abstract class CobolCompileDebugTask extends DefaultTask{
 		Set<String> done = new HashSet<>()
 		String sourceModule = this.configuration.projectFileResolver(this.configuration.srcMainPath).absolutePath
 		
+		final CobolExtension configuration = getProject().extensions.findByType(CobolExtension.class)
+		
 		inputs.getFileChanges(inputDir).each { change ->
 			if (change.fileType == FileType.DIRECTORY) return
 
@@ -55,7 +57,7 @@ abstract class CobolCompileDebugTask extends DefaultTask{
 			if (change.changeType == ChangeType.REMOVED) {
 				targetFile.delete()
 			} else {
-				if (change.file.name.endsWith(this.getConvention().srcFileType)) {
+				if (change.file.name.endsWith(configuration.srcFileType)) {
 					def name = change.file.absolutePath.replace(sourceModule, '')
 					compileFile(name, change.file.absolutePath)
 					done.add(name)
