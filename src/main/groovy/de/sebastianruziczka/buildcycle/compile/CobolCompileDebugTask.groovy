@@ -32,7 +32,7 @@ abstract class CobolCompileDebugTask extends DefaultTask{
 	abstract DirectoryProperty getInputDir()
 
 	@OutputDirectory
-	def File outputDir
+	abstract DirectoryProperty getOutputDir()
 	
 	public CobolCompileDebugTask() {
 		this.configuration = getProject().extensions.findByType(CobolExtension.class)
