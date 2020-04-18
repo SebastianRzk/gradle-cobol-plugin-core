@@ -44,7 +44,7 @@ class CobolCompileDebugTask extends DefaultTask{
 		Set<String> done = new HashSet<>()
 		String sourceModule = this.configuration.projectFileResolver(this.configuration.srcMainPath).absolutePath
 		
-		inputs.getFileChanges(this.getProject().file(inputDir)).each { change ->
+		inputs.getFileChanges(this.getProject().files(inputDir)).each { change ->
 			if (change.fileType == FileType.DIRECTORY) return
 
 			println "${change.changeType}: ${change.normalizedPath}"
