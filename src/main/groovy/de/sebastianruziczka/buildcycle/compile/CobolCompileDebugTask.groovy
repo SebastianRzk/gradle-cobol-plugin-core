@@ -4,6 +4,7 @@ import javax.inject.Inject
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
@@ -26,7 +27,7 @@ class CobolCompileDebugTask extends DefaultTask{
     @Incremental
 	@PathSensitive(PathSensitivity.ABSOLUTE)
 	@InputDirectory
-	def File inputDir
+	def DirectoryProperty inputDir
 
 	@OutputDirectory
 	def File outputDir
@@ -44,7 +45,7 @@ class CobolCompileDebugTask extends DefaultTask{
 		Set<String> done = new HashSet<>()
 		String sourceModule = this.configuration.projectFileResolver(this.configuration.srcMainPath).absolutePath
 		
-		inputs.getFileChanges(this.getProject().files(inputDir)).each { change ->
+		inputs.getFileChanges(inputDir).each { change ->
 			if (change.fileType == FileType.DIRECTORY) return
 
 			println "${change.changeType}: ${change.normalizedPath}"
