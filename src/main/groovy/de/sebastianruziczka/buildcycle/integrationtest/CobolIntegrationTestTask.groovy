@@ -17,24 +17,20 @@ class CobolIntegrationTestTask extends DefaultTask{
 	@Input
 	def integrationTestFrameworks = []
 
-	private CobolExtension configuration
-
-	public CobolIntegrationTestTask() {
-		this.configuration = getProject().extensions.findByType(CobolExtension.class)
-	}
-
 	@TaskAction
 	public void run() {
+		final CobolExtension configuration = getProject().extensions.findByType(CobolExtension.class)
+		
 		integrationTestFrameworks.forEach({ it.clean() })
 
-		def testTree = this.configuration.integrationTestTree()
+		def testTree = configuration.integrationTestTree()
 		def allTests = []
 
 		testTree.each { File file ->
 			allTests << file.absolutePath
 		}
 
-		def srcTree = this.configuration.sourceTree()
+		def srcTree = configuration.sourceTree()
 		def allSrc = []
 		srcTree.each { File file ->
 			allSrc << file.absolutePath
@@ -52,13 +48,13 @@ class CobolIntegrationTestTask extends DefaultTask{
 			String expectedSrcModulePath = configuration.projectFileResolver(configuration.srcMainPath + '/' + moduleName + configuration.srcFileType).absolutePath
 			if (allSrc.contains(expectedSrcModulePath)) {
 				allSrc.remove(expectedSrcModulePath)
-				cobolTestPairs << new CobolSourceFile(this.configuration, moduleName + configuration.srcFileType)
+				cobolTestPairs << new CobolSourceFile(configuration, moduleName + configuration.srcFileType)
 			}
 		}
 
 		if (cobolTestPairs.size() == 0) {
 			logger.warn('NO TEST-PAIRS FOUND')
-			logger.warn('Convention: Main: <name>' + configuration.srcFileType + '  Test: <name>'+configuration.unittestPostfix+configuration.srcFileType)
+			logger.warn('Convention: Main: <name> {}  Test: {}{}', configuration.srcFileType, configuration.unittestPostfix, configuration.srcFileType)
 			return
 		}
 
