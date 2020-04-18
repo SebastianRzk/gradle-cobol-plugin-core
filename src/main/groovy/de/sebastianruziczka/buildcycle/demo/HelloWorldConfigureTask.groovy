@@ -11,9 +11,8 @@ class HelloWorldConfigureTask extends DefaultTask{
 
 	private CobolExtension configuration
 
-	@Inject
-	public HelloWorldConfigureTask(CobolExtension configuration) {
-		this.configuration = configuration
+	public HelloWorldConfigureTask() {
+		this.configuration = getProject().extensions.findByType(CobolExtension.class)
 	}
 	
 	@TaskAction

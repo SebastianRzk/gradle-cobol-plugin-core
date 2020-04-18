@@ -14,10 +14,9 @@ class CobolMultitargetCompileTask extends DefaultTask{
 	List<String> allTargets = new ArrayList<>()
 
 	private CobolExtension configuration;
-	
-	@Inject
-	public CobolMultitargetCompileTask(CobolExtension configuration) {
-		this.configuration = configuration
+
+	public CobolMultitargetCompileTask() {
+		this.configuration = getProject().extensions.findByType(CobolExtension.class)
 	}
 
 	@TaskAction

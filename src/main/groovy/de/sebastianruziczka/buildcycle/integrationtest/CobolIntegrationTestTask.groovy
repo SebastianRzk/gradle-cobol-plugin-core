@@ -16,12 +16,11 @@ import de.sebastianruziczka.buildcycle.test.UnitTestError
 class CobolIntegrationTestTask extends DefaultTask{
 	@Input
 	def integrationTestFrameworks = []
-	
+
 	private CobolExtension configuration
-	
-	@Inject
-	public CobolIntegrationTestTask(CobolExtension configuration) {
-		this.configuration = configuration
+
+	public CobolIntegrationTestTask() {
+		this.configuration = getProject().extensions.findByType(CobolExtension.class)
 	}
 
 	@TaskAction
