@@ -1,5 +1,7 @@
 package de.sebastianruziczka.buildcycle.integrationtest
 
+import javax.inject.Inject
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
@@ -17,6 +19,7 @@ class CobolIntegrationTestTask extends DefaultTask{
 	
 	private CobolExtension configuration
 	
+	@Inject
 	public CobolIntegrationTestTask(CobolExtension configuration) {
 		this.configuration = configuration
 	}

@@ -1,5 +1,7 @@
 package de.sebastianruziczka.buildcycle.unittest
 
+import javax.inject.Inject
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
@@ -17,6 +19,7 @@ class CobolUnitTestTask extends DefaultTask{
 	
 	private CobolExtension configuration
 	
+	@Inject
 	public CobolUnitTestTask(CobolExtension configuration) {
 		this.configuration = configuration
 	}

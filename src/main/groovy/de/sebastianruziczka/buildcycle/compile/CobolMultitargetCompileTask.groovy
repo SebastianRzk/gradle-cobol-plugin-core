@@ -1,5 +1,7 @@
 package de.sebastianruziczka.buildcycle.compile
 
+import javax.inject.Inject
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
@@ -13,6 +15,7 @@ class CobolMultitargetCompileTask extends DefaultTask{
 
 	private CobolExtension configuration;
 	
+	@Inject
 	public CobolMultitargetCompileTask(CobolExtension configuration) {
 		this.configuration = configuration
 	}

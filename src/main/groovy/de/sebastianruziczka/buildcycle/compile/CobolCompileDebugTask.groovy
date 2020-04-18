@@ -1,14 +1,18 @@
 package de.sebastianruziczka.buildcycle.compile
 
+import javax.inject.Inject
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.SkipWhenEmpty
 import org.gradle.api.tasks.TaskAction
-import org.gradle.api.tasks.incremental.IncrementalTaskInputs
-
+import org.gradle.work.Incremental
+import org.gradle.work.InputChanges
 import de.sebastianruziczka.CobolExtension
 import de.sebastianruziczka.compiler.api.CompileJob
 
@@ -19,37 +23,45 @@ class CobolCompileDebugTask extends DefaultTask{
 	@Input
 	boolean tracing = false
 
-	@SkipWhenEmpty
+    @Incremental
+	@PathSensitive(PathSensitivity.ABSOLUTE)
 	@InputDirectory
 	def File inputDir
 
 	@OutputDirectory
 	def File outputDir
 	
+	@Inject
 	public CobolCompileDebugTask(CobolExtension configuration) {
 		this.configuration = configuration
 	}
 
 	@TaskAction
-	public void run(IncrementalTaskInputs inputs) {
-		String sourceModule = this.configuration.projectFileResolver(this.configuration.srcMainPath).absolutePath
+	public void run(InputChanges inputs) {
+		logger.info(inputs.incremental
+			? 'Compile debug incrementally'
+			: 'Compile debug non-incrementally'
+		)
 		Set<String> done = new HashSet<>()
-		inputs.outOfDate { change ->
-			if (change.file.name.endsWith(this.configuration.srcFileType)) {
-				def name = change.file.absolutePath.replace(sourceModule, '')
-				compileFile(name, change.file.absolutePath)
-				done.add(name)
-				return
+		String sourceModule = this.configuration.projectFileResolver(this.configuration.srcMainPath).absolutePath
+		
+		inputs.getFileChanges(inputDir).each { change ->
+			if (change.fileType == FileType.DIRECTORY) return
+
+			println "${change.changeType}: ${change.normalizedPath}"
+			def targetFile = outputDir.file(change.normalizedPath).get().asFile
+			if (change.changeType == ChangeType.REMOVED) {
+				targetFile.delete()
+			} else {
+				if (change.file.name.endsWith(this.configuration.srcFileType)) {
+					def name = change.file.absolutePath.replace(sourceModule, '')
+					compileFile(name, change.file.absolutePath)
+					done.add(name)
+					return
+				}
 			}
 		}
 		logger.info('Compiled Files: ' + done)
-
-		inputs.removed { change ->
-			def targetFile = this.configuration.projectFileResolver(change.file.absolutePath)
-			if (targetFile.exists()) {
-				targetFile.delete()
-			}
-		}
 	}
 
 	void compileFile(String target, String absoluteTargetPath) {

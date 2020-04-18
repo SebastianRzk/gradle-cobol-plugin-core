@@ -1,5 +1,7 @@
 package de.sebastianruziczka.buildcycle.demo
 
+import javax.inject.Inject
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
@@ -9,6 +11,7 @@ class HelloWorldConfigureTask extends DefaultTask{
 
 	private CobolExtension configuration
 
+	@Inject
 	public HelloWorldConfigureTask(CobolExtension configuration) {
 		this.configuration = configuration
 	}
