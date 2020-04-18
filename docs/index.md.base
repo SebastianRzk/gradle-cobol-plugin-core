@@ -36,7 +36,7 @@ Further Reading:
 | -------- | ----------- | ------------------ | --------------------- | ------------------ | -------------------------- | ------------------------- | --------------------------------- |
 | GnuCobol / Open Cobol 1.1 | fixed | full support | full support | full support | full support | --- | --- |
 | GnuCobol 2 *recommended* | fixed | full support | full support | full support | full support | full support | full support |
-| GnuCobol 3rc | fixed | full support | full support | full support | full support | full support | full support |
+| GnuCobol 3rc *also recommended*| fixed | full support | full support | full support | full support | full support | full support |
 
 
 ### Free file format
@@ -47,7 +47,12 @@ Further Reading:
 | GnuCobol 2 | free | full support | full support | not tested | not tested | not tested | not tested |
 | GnuCobol 3rc | free | not tested | not tested | not tested | not tested | not tested | not tested |
 
+### Gradle API compatibility
 
+| gradle cobol plugin version | gradle version |
+| --------------------------- | -------------- |
+|  *recommended* <br> latest, gradle.actualVersion, >=0.46 | >= 5.4         |
+| <= 0.0.45                   | <= 6.X         |
 
 ## 3-Steps Quickstart
 
