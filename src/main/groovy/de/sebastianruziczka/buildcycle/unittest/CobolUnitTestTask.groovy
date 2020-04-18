@@ -24,14 +24,14 @@ class CobolUnitTestTask extends DefaultTask{
 
 		unitTestFrameworks.forEach({ it.clean() })
 
-		def testTree = this.configuration.unitTestTree()
+		def testTree = configuration.unitTestTree()
 		def allTests = []
 
 		testTree.each { File file ->
 			allTests << file.absolutePath
 		}
 
-		def srcTree = this.configuration.sourceTree()
+		def srcTree = configuration.sourceTree()
 		def allSrc = []
 		srcTree.each { File file ->
 			allSrc << file.absolutePath
@@ -49,7 +49,7 @@ class CobolUnitTestTask extends DefaultTask{
 			String expectedSrcModulePath = configuration.projectFileResolver(configuration.srcMainPath + '/' + moduleName + configuration.srcFileType).absolutePath
 			if (allSrc.contains(expectedSrcModulePath)) {
 				allSrc.remove(expectedSrcModulePath)
-				cobolTestPairs << new CobolSourceFile(this.configuration, moduleName + configuration.srcFileType)
+				cobolTestPairs << new CobolSourceFile(configuration, moduleName + configuration.srcFileType)
 			}
 		}
 
