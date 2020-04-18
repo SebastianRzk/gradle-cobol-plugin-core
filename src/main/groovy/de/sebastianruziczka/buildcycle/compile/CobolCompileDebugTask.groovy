@@ -31,9 +31,8 @@ class CobolCompileDebugTask extends DefaultTask{
 	@OutputDirectory
 	def File outputDir
 	
-	@Inject
-	public CobolCompileDebugTask(CobolExtension configuration) {
-		this.configuration = configuration
+	public CobolCompileDebugTask() {
+		this.configuration = getProject().extensions.findByType(CobolExtension.class)
 	}
 
 	@TaskAction

@@ -25,9 +25,8 @@ class CobolCompileExecutableTask extends DefaultTask{
 	@OutputFile
 	def File outputDir
 	
-	@Inject
-	public CobolCompileExecutableTask(CobolExtension configuration) {
-		this.configuration = configuration
+	public CobolCompileExecutableTask() {
+		this.configuration = getProject().extensions.findByType(CobolExtension.class)
 	}
 
 	@TaskAction
