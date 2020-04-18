@@ -17,7 +17,7 @@ import org.gradle.work.InputChanges
 import de.sebastianruziczka.CobolExtension
 import de.sebastianruziczka.compiler.api.CompileJob
 
-class CobolCompileDebugTask extends DefaultTask{
+abstract class CobolCompileDebugTask extends DefaultTask{
 
 	private CobolExtension configuration
 	
@@ -27,7 +27,7 @@ class CobolCompileDebugTask extends DefaultTask{
     @Incremental
 	@PathSensitive(PathSensitivity.ABSOLUTE)
 	@InputDirectory
-	def DirectoryProperty inputDir
+	abstract DirectoryProperty getInputDir()
 
 	@OutputDirectory
 	def File outputDir
