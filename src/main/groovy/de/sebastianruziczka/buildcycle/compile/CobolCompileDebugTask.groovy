@@ -55,7 +55,7 @@ abstract class CobolCompileDebugTask extends DefaultTask{
 			if (change.changeType == ChangeType.REMOVED) {
 				targetFile.delete()
 			} else {
-				if (change.file.name.endsWith(this.configuration.srcFileType)) {
+				if (change.file.name.endsWith(this.getConvention().srcFileType)) {
 					def name = change.file.absolutePath.replace(sourceModule, '')
 					compileFile(name, change.file.absolutePath)
 					done.add(name)
