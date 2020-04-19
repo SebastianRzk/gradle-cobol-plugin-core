@@ -1,5 +1,7 @@
 package de.sebastianruziczka.buildcycle.demo
 
+import javax.inject.Inject
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
@@ -7,8 +9,12 @@ import de.sebastianruziczka.CobolExtension
 
 class HelloWorldConfigureTask extends DefaultTask{
 
-	CobolExtension configuration
+	private CobolExtension configuration
 
+	public HelloWorldConfigureTask() {
+		this.configuration = getProject().extensions.findByType(CobolExtension.class)
+	}
+	
 	@TaskAction
 	public void run() {
 		println 'Overwrite configured srcMain settings'

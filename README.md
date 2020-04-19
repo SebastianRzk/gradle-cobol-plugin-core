@@ -6,3 +6,4 @@ This project is part of my master thesis.
 This repo is the sourcecode of the gradle-cobol-plugin-core.
 
 More information can be found on the [website/documentation](docs/index.md)
+

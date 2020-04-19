@@ -38,7 +38,6 @@ class CobolBuildcycleUnit {
 			})
 
 			unitTestFrameworks = allUnitTestFrameworks
-			configuration = conf
 		}
 
 		allUnitTestFrameworks.addAll(frameworkResolver.resolve(CobolUnitTestFrameworkProvider, CobolTestFramework, conf, project))

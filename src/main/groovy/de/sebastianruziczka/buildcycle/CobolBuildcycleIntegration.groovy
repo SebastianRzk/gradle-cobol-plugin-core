@@ -38,7 +38,6 @@ class CobolBuildcycleIntegration {
 			})
 
 			integrationTestFrameworks = allIntegrationTestFrameworks
-			configuration = conf
 		}
 
 		allIntegrationTestFrameworks.addAll(frameworkResolver.resolve(CobolIntegrationTestFrameworkProvider, CobolTestFramework, conf, project))

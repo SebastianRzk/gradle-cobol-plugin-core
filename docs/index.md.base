@@ -18,7 +18,7 @@ You can discover some examples [here](https://github.com/RosesTheN00b/gradle-cob
 ## Gradle-cobol environment
 
 * [![Build Status](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin.svg?branch=master)](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin)  [gradle-cobol-plugin](https://gradle-cobol.sebastianruziczka.de) Package of the *core* and the *unittest* plugin.
-* [![Build Status](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-core.svg?branch=master)](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-core) The base gradle plugin (compile, run)
+* [![Build Status](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-core.svg?branch=master)](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-core) [gradle-cobol-plugin-core](https://github.com/RosesTheN00b/gradle-cobol-plugin-core) The base gradle plugin (compile, run)
 * [![Build Status](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-unittest-extension.svg?branch=master)](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-unittest-extension)[gradle-cobol-plugin-unittest-extension](https://gradle-cobol-unit.sebastianruziczka.de) Adds unittests and testcoverage to the base plugin
 * [![Build Status](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-example.svg?branch=master)](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-example)[![codecov](https://codecov.io/gh/RosesTheN00b/gradle-cobol-plugin-example/branch/master/graph/badge.svg)](https://codecov.io/gh/RosesTheN00b/gradle-cobol-plugin-example)[gradle-cobol-plugin-example](https://github.com/RosesTheN00b/gradle-cobol-plugin-example) 
 This Project contains many gradle-cobol example projects
@@ -36,7 +36,7 @@ Further Reading:
 | -------- | ----------- | ------------------ | --------------------- | ------------------ | -------------------------- | ------------------------- | --------------------------------- |
 | GnuCobol / Open Cobol 1.1 | fixed | full support | full support | full support | full support | --- | --- |
 | GnuCobol 2 *recommended* | fixed | full support | full support | full support | full support | full support | full support |
-| GnuCobol 3rc | fixed | full support | full support | full support | full support | full support | full support |
+| GnuCobol 3rc *also recommended*| fixed | full support | full support | full support | full support | full support | full support |
 
 
 ### Free file format
@@ -47,7 +47,12 @@ Further Reading:
 | GnuCobol 2 | free | full support | full support | not tested | not tested | not tested | not tested |
 | GnuCobol 3rc | free | not tested | not tested | not tested | not tested | not tested | not tested |
 
+### Gradle API compatibility
 
+| gradle cobol plugin version | gradle version |
+| --------------------------- | -------------- |
+|  *recommended* <br> latest, gradle.actualVersion, >=0.46 | >= 5.4         |
+| <= 0.0.45                   | <= 6.X         |
 
 ## 3-Steps Quickstart
 
@@ -76,15 +81,15 @@ Initial project structure:
 
 Import the plugin from the provided repo (in your settings.gradle):
 
-    mvn: https://sebastianruziczka.de/repo/mvn
-    ivy: https://sebastianruziczka.de/repo/ivy
+    mvn: https://repo.sebastianruziczka.de/mvn
+    ivy: https://repo.sebastianruziczka.de/ivy
 
 E.g. settings.gradle :
 
 	pluginManagement {
 		repositories {
 			maven {
-				url 'https://sebastianruziczka.de/repo/mvn/'
+				url 'https://repo.sebastianruziczka.de/mvn/'
 			}
 		}
 	}
@@ -265,7 +270,7 @@ At first, add the gradleAPI and gradle-cobol-plugin as dependency:
 		mavenCentral()
 		jcenter()
 		maven {
-			url 'https://sebastianruziczka.de/repo/mvn'
+			url 'https://repo.sebastianruziczka.de/mvn'
 		}
 	}
 

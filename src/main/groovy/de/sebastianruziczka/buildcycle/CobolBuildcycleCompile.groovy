@@ -26,7 +26,6 @@ class CobolBuildcycleCompile {
 			outputDir = new File(conf.absoluteBinMainPath())
 			inputDir = new File(conf.absoluteSrcMainModulePath())
 
-			configuration = conf
 			target = conf.srcMain
 
 			doFirst {
@@ -42,8 +41,6 @@ class CobolBuildcycleCompile {
 			outputDir = conf.projectFileResolver(conf.binMainPath)
 			inputDir = new File(conf.absoluteSrcMainModulePath())
 
-			configuration = conf
-
 			doFirst {
 				checkIfMainFileIsSet(logger, conf)
 				prepareBinFolder(conf)
@@ -57,7 +54,6 @@ class CobolBuildcycleCompile {
 			outputDir = conf.projectFileResolver(conf.binMainPath)
 			inputDir = new File(conf.srcMainPath)
 
-			configuration = conf
 			tracing = true
 
 			doFirst {
@@ -75,7 +71,6 @@ class CobolBuildcycleCompile {
 			})
 
 			allTargets = conf.multiCompileTargets
-			configuration = conf
 
 			doFirst { prepareBinFolder(conf) }
 		}

@@ -1,48 +1,71 @@
 package de.sebastianruziczka.buildcycle.compile
 
+import javax.inject.Inject
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.FileType
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.SkipWhenEmpty
 import org.gradle.api.tasks.TaskAction
-import org.gradle.api.tasks.incremental.IncrementalTaskInputs
-
+import org.gradle.work.ChangeType
+import org.gradle.work.Incremental
+import org.gradle.work.InputChanges
 import de.sebastianruziczka.CobolExtension
 import de.sebastianruziczka.compiler.api.CompileJob
 
-class CobolCompileDebugTask extends DefaultTask{
+abstract class CobolCompileDebugTask extends DefaultTask{
 
-	CobolExtension configuration
+	private CobolExtension configuration
+	
+	@Input
 	boolean tracing = false
 
-	@SkipWhenEmpty
+    @Incremental
+	@PathSensitive(PathSensitivity.ABSOLUTE)
 	@InputDirectory
-	def File inputDir
+	abstract DirectoryProperty getInputDir()
 
 	@OutputDirectory
-	def File outputDir
+	abstract DirectoryProperty getOutputDir()
+	
+	public CobolCompileDebugTask() {
+		this.configuration = getProject().extensions.findByType(CobolExtension.class)
+	}
 
 	@TaskAction
-	public void run(IncrementalTaskInputs inputs) {
-		String sourceModule = this.configuration.projectFileResolver(this.configuration.srcMainPath).absolutePath
+	public void run(InputChanges inputs) {
+		logger.info(inputs.incremental
+			? 'Compile debug incrementally'
+			: 'Compile debug non-incrementally'
+		)
 		Set<String> done = new HashSet<>()
-		inputs.outOfDate { change ->
-			if (change.file.name.endsWith(this.configuration.srcFileType)) {
-				def name = change.file.absolutePath.replace(sourceModule, '')
-				compileFile(name, change.file.absolutePath)
-				done.add(name)
-				return
+		String sourceModule = this.configuration.projectFileResolver(this.configuration.srcMainPath).absolutePath
+		
+		final CobolExtension configuration = getProject().extensions.findByType(CobolExtension.class)
+		
+		inputs.getFileChanges(inputDir).each { change ->
+			if (change.fileType == FileType.DIRECTORY) return
+
+			println "${change.changeType}: ${change.normalizedPath}"
+			def targetFile = outputDir.file(change.normalizedPath).get().asFile
+			if (change.changeType == ChangeType.REMOVED) {
+				targetFile.delete()
+			} else {
+				if (change.file.name.endsWith(configuration.srcFileType)) {
+					def name = change.file.absolutePath.replace(sourceModule, '')
+					compileFile(name, change.file.absolutePath)
+					done.add(name)
+					return
+				}
 			}
 		}
 		logger.info('Compiled Files: ' + done)
-
-		inputs.removed { change ->
-			def targetFile = this.configuration.projectFileResolver(change.file.absolutePath)
-			if (targetFile.exists()) {
-				targetFile.delete()
-			}
-		}
 	}
 
 	void compileFile(String target, String absoluteTargetPath) {

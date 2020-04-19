@@ -1,6 +1,9 @@
 package de.sebastianruziczka.buildcycle.unittest
 
+import javax.inject.Inject
+
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 
 import de.sebastianruziczka.CobolExtension
@@ -11,21 +14,24 @@ import de.sebastianruziczka.buildcycle.test.TestResultConsolePrinter
 import de.sebastianruziczka.buildcycle.test.UnitTestError
 
 class CobolUnitTestTask extends DefaultTask{
+	@Input
 	def unitTestFrameworks = []
-	def CobolExtension configuration
+
 
 	@TaskAction
 	public void run() {
+		final CobolExtension configuration = getProject().extensions.findByType(CobolExtension.class)
+
 		unitTestFrameworks.forEach({ it.clean() })
 
-		def testTree = this.configuration.unitTestTree()
+		def testTree = configuration.unitTestTree()
 		def allTests = []
 
 		testTree.each { File file ->
 			allTests << file.absolutePath
 		}
 
-		def srcTree = this.configuration.sourceTree()
+		def srcTree = configuration.sourceTree()
 		def allSrc = []
 		srcTree.each { File file ->
 			allSrc << file.absolutePath
@@ -43,7 +49,7 @@ class CobolUnitTestTask extends DefaultTask{
 			String expectedSrcModulePath = configuration.projectFileResolver(configuration.srcMainPath + '/' + moduleName + configuration.srcFileType).absolutePath
 			if (allSrc.contains(expectedSrcModulePath)) {
 				allSrc.remove(expectedSrcModulePath)
-				cobolTestPairs << new CobolSourceFile(this.configuration, moduleName + configuration.srcFileType)
+				cobolTestPairs << new CobolSourceFile(configuration, moduleName + configuration.srcFileType)
 			}
 		}
 

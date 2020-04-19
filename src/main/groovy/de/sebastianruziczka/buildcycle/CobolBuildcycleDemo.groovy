@@ -18,14 +18,12 @@ class CobolBuildcycleDemo {
 		project.task ('helloWorldCopySource', type: HelloWorldCopyTask) {
 			group 'COBOL Demo'
 			description 'Copys ' + CobolDemoConstants.COBOL_SRC_FILE_PATH + ' in src/main/cobol'
-			configuration = conf
-			outputFile = new File(conf.srcMainPath + CobolDemoConstants.COBOL_SRC_FILE_PATH)
+			helloWorldFilePath = conf.srcMainPath + CobolDemoConstants.COBOL_SRC_FILE_PATH
 		}
 
 		project.task ('helloWorldConfigure', type: HelloWorldConfigureTask) {
 			group 'COBOL Demo'
 			description 'Set configuration for ' + CobolDemoConstants.COBOL_SRC_FILE_PATH
-			configuration = conf
 		}
 		
 		project.task ('helloWorld', dependsOn: ['helloWorldCopySource', 'helloWorldConfigure', 'runDebug']) {
