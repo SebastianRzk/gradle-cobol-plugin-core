@@ -260,7 +260,7 @@ Insert the full qualified terminal command string. Use `{path}` as placeholder f
 
 Basics how to extend this project.
 
-Example: [![Build Status](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-unittest-extension.svg?branch=master)](https://travis-ci.org/RosesTheN00b/gradle-cobol-plugin-unittest-extension)  [gradle-cobol-plugin-unittest-extension](https://github.com/RosesTheN00b/gradle-cobol-plugin-unittest-extension) Adds unittests to the base plugin
+Example: [![Build Status](https://travis-ci.org/SebastianRzk/gradle-cobol-plugin-unittest-extension.svg?branch=master)](https://travis-ci.org/SebastianRzk/gradle-cobol-plugin-unittest-extension)  [gradle-cobol-plugin-unittest-extension](https://github.com/SebastianRzk/gradle-cobol-plugin-unittest-extension) Adds unittests to the base plugin
 
 ### Basics
 
